@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Clinic {
 
-    private Long clinicId;
+    private Long id;
     private String name;
     private String region;
 

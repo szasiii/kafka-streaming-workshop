@@ -10,7 +10,6 @@ import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
-import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Serialized;
@@ -24,7 +23,6 @@ import org.szasiii.github.infra.serdes.CustomSerdes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Properties;
 
 import static org.szasiii.kstreams.Utils.createTopics;
@@ -46,7 +44,7 @@ public class Ex5App {
         createTopics(Arrays.asList("ex3-user-table", "ex3-user-orders", "ex3-inner-join-output", "ex3-left-join-output"));
 
         Properties config = new Properties();
-        config.put(StreamsConfig.APPLICATION_ID_CONFIG, "ex4-app");
+        config.put(StreamsConfig.APPLICATION_ID_CONFIG, "ex5-app");
         config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         config.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
@@ -62,19 +60,19 @@ public class Ex5App {
         StreamsBuilder streamsBuilder = new StreamsBuilder();
 
         KTable<Long, Doctor> doctors =
-                streamsBuilder.table("doctors", Consumed.with(Serdes.Long(), CustomSerdes.DOCTOR)); //filtrer no clinic id and no speciality id
+                streamsBuilder.table("ex5-doctors", Consumed.with(Serdes.Long(), CustomSerdes.DOCTOR)); //filtrer no clinic id and no speciality id
 
         KTable<Long, Clinic> clinics =
-                streamsBuilder.table("clinics", Consumed.with(Serdes.Long(), CustomSerdes.CLINIC));
+                streamsBuilder.table("ex5-clinics", Consumed.with(Serdes.Long(), CustomSerdes.CLINIC));
 
         KTable<Long, Disease> diseases =
-                streamsBuilder.table("diseases", Consumed.with(Serdes.Long(), CustomSerdes.DISASE)); // normalize by trimming and lower casing codes
+                streamsBuilder.table("ex5-diseases", Consumed.with(Serdes.Long(), CustomSerdes.DISASE)); // normalize by trimming and lower casing codes
 
         KTable<Long, Medicine> medicines =
-                streamsBuilder.table("medicines", Consumed.with(Serdes.Long(), CustomSerdes.MEDICINE));
+                streamsBuilder.table("ex5-medicines", Consumed.with(Serdes.Long(), CustomSerdes.MEDICINE));
 
         KTable<Long, Prescription> presciptions =
-                streamsBuilder.table("prescriptions", Consumed.with(Serdes.Long(), CustomSerdes.PRESCRIPTION)); //filter where no disease or medicine code
+                streamsBuilder.table("ex5-prescriptions", Consumed.with(Serdes.Long(), CustomSerdes.PRESCRIPTION)); //filter where no disease or medicine code
 
 
         doctors
@@ -89,9 +87,7 @@ public class Ex5App {
                 .toStream()
                 .flatMapValues((readOnlyKey, value) -> value)
                 .join(clinics, DoctorClinic::new)
-                .selectKey((key, value) -> KeyValue.pair(value.getDoctor().getLicenseId(), value));
-
-
+                .selectKey((key, value) -> KeyValue.pair(value.getDoctor().getId(), value));
 
 
         /***
