@@ -18,6 +18,7 @@ import java.util.Properties;
 
 import static org.szasiii.kstreams.Utils.createTopics;
 
+@SuppressWarnings("Duplicates")
 public class Solution2App implements TopologyProvider {
     public static void main(String[] args) throws Exception {
         Solution2App solution2App = new Solution2App();

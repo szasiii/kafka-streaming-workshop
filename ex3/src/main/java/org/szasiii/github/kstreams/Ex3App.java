@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import static org.szasiii.kstreams.Utils.createTopics;
 
+@SuppressWarnings("Duplicates")
 public class Ex3App implements TopologyProvider {
     /***
      *
