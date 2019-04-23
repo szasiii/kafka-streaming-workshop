@@ -2,29 +2,15 @@ package org.szasiii.github.kstreams;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.time.Duration;
 import java.util.Collections;
 
 import static org.szasiii.kstreams.Utils.createConsumer;
-import static org.szasiii.kstreams.Utils.createProducer;
-import static org.szasiii.kstreams.Utils.exRecord;
 
-public class Ex0Helper {
+public class Ex0Consumer {
     public static void main(String[] args) throws Exception {
-
-        Producer<String, String> producer = createProducer();
-
-        producer.send(exRecord("ex0-input", "test1", "test"));
-        producer.send(exRecord("ex0-input", "test2", "test"));
-        producer.send(exRecord("ex0-input", "test3", "test"));
-        producer.send(exRecord("ex0-input", "test1", "test-update"));
-        producer.send(exRecord("ex0-input", "test2", null));
-
-        Thread.sleep(5000L);
-
         Consumer<String, String> consumer = createConsumer(Collections.singletonList("ex0-output"), StringSerializer.class.getName());
 
         while (true) {

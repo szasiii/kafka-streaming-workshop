@@ -1,18 +1,11 @@
 package org.szasiii.github.kstreams;
 
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.common.serialization.LongDeserializer;
 
-import java.time.Duration;
-import java.util.Arrays;
-
-import static org.szasiii.kstreams.Utils.createConsumer;
 import static org.szasiii.kstreams.Utils.createProducer;
 import static org.szasiii.kstreams.Utils.exRecord;
 
-public class Ex2Helper {
+public class Ex2Producer {
     public static void main(String[] args) throws Exception {
 
         Producer<String, String> producer = createProducer();
@@ -30,16 +23,6 @@ public class Ex2Helper {
 
 
         Thread.sleep(5000L);
-
-        Consumer<String, Long> consumer = createConsumer(Arrays.asList("ex2-legacy-output", "ex2-new-output"), LongDeserializer.class.getName());
-
-        while (true) {
-            ConsumerRecords<String, Long> consumerRecords = consumer.poll(Duration.ofSeconds(2L));
-            if (!consumerRecords.isEmpty()) {
-                consumerRecords.records("ex2-new-output").forEach(record -> System.out.println("new out key: " + record.key() + " value: " + record.value()));
-                consumerRecords.records("ex2-legacy-output").forEach(record -> System.out.println("legacy out key: " + record.key() + " value: " + record.value()));
-            }
-        }
     }
 }
 

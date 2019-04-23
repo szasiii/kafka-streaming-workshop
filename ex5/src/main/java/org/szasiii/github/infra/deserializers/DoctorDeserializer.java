@@ -1,9 +1,9 @@
 package org.szasiii.github.infra.deserializers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.szasiii.github.infra.model.Doctor;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
+import org.szasiii.github.infra.model.Doctor;
 
 import java.util.Map;
 

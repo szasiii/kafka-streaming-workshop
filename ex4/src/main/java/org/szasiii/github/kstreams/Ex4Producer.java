@@ -1,23 +1,16 @@
 package org.szasiii.github.kstreams;
 
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.LongSerializer;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.szasiii.github.infra.model.Clinic;
 import org.szasiii.github.infra.model.Doctor;
 import org.szasiii.github.infra.serializers.ClinicSerializer;
 import org.szasiii.github.infra.serializers.DoctorSerializer;
 
-import java.time.Duration;
-import java.util.Arrays;
-
-import static org.szasiii.kstreams.Utils.createConsumer;
 import static org.szasiii.kstreams.Utils.createCustomProducer;
 
-public class Ex4Helper {
+public class Ex4Producer {
     public static void main(String[] args) throws Exception {
 
         Producer<Long, Doctor> doctorProducer = createCustomProducer(LongSerializer.class.getName(), DoctorSerializer.class.getName());
@@ -44,15 +37,6 @@ public class Ex4Helper {
 
 
         clinicProducer.send(new ProducerRecord<>("ex4-clinics", 1002L, new Clinic(1002L, "clinic2", "REG2")));
-
-        Consumer<String, String> consumer = createConsumer(Arrays.asList("ex4-output"), StringDeserializer.class.getName());
-
-        while (true) {
-            ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(2L));
-            if (!consumerRecords.isEmpty()) {
-                consumerRecords.records("ex4-output").forEach(record -> System.out.println("one-many out key: " + record.key() + " value: " + record.value()));
-            }
-        }
     }
 
 //    one-many out key: 1000 value: 1000-CRD-1000

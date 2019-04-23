@@ -21,7 +21,8 @@ public class ArrayListSerde<T> implements Serde<ArrayList<T>> {
                         new ArrayListDeserializer<>(serde.deserializer()));
     }
 
-    public ArrayListSerde() {}
+    public ArrayListSerde() {
+    }
 
     @Override
     public Serializer<ArrayList<T>> serializer() {

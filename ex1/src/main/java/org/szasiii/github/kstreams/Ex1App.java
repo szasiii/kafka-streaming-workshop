@@ -1,6 +1,5 @@
 package org.szasiii.github.kstreams;
 
-import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
 
 import java.util.Arrays;

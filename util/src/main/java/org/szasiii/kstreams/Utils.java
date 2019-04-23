@@ -47,7 +47,7 @@ public class Utils {
         return new KafkaProducer<>(properties);
     }
 
-    public static <K, V>  Producer<K, V> createCustomProducer(String keySerializer, String valueSerializer) {
+    public static <K, V> Producer<K, V> createCustomProducer(String keySerializer, String valueSerializer) {
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer);
@@ -65,7 +65,7 @@ public class Utils {
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         props.put(ConsumerConfig.GROUP_ID_CONFIG, UUID.randomUUID().toString());
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,valueSerializer);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, valueSerializer);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         final Consumer<String, T> consumer = new KafkaConsumer<>(props);

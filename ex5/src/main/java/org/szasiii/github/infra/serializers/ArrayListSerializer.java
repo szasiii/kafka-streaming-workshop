@@ -18,7 +18,8 @@ public class ArrayListSerializer<T> implements Serializer<ArrayList<T>> {
     }
 
     // Default constructor needed by Kafka
-    public ArrayListSerializer() {}
+    public ArrayListSerializer() {
+    }
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {

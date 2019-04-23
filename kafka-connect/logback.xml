@@ -7,7 +7,7 @@
     </appender>
 
     <root level="${LOGGING_ROOT_LEVEL:-INFO}">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </root>
 
 </configuration>
