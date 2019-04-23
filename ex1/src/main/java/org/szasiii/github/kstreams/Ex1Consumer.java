@@ -2,6 +2,8 @@ package org.szasiii.github.kstreams;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.common.serialization.LongDeserializer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.time.Duration;
@@ -11,7 +13,7 @@ import static org.szasiii.kstreams.Utils.createConsumer;
 
 public class Ex1Consumer {
     public static void main(String[] args) throws Exception {
-        Consumer<String, String> consumer = createConsumer(Arrays.asList("ex1-stream-output", "ex1-table-output"), StringSerializer.class.getName());
+        Consumer<String, String> consumer = createConsumer(Arrays.asList("ex1-stream-output", "ex1-table-output"), LongDeserializer.class.getName(), StringDeserializer.class.getName());
 
         while (true) {
             ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(2L));

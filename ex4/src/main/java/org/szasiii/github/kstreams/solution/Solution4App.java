@@ -17,6 +17,7 @@ import org.szasiii.github.infra.model.Clinic;
 import org.szasiii.github.infra.model.Doctor;
 import org.szasiii.github.infra.serdes.ArrayListSerde;
 import org.szasiii.github.infra.serdes.CustomSerdes;
+import org.szasiii.kstreams.TopologyProvider;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,8 +25,9 @@ import java.util.Properties;
 
 import static org.szasiii.kstreams.Utils.createTopics;
 
-public class Solution4App {
+public class Solution4App implements TopologyProvider {
     public static void main(String[] args) throws Exception {
+        Solution4App solution4App = new Solution4App();
 
         createTopics(Arrays.asList("ex4-doctors", "ex4-clinics", "ex4-output"));
 
@@ -36,13 +38,14 @@ public class Solution4App {
         config.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.Long().getClass());
         config.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
-        final KafkaStreams kafkaStreams = new KafkaStreams(createTopology(), config);
+        final KafkaStreams kafkaStreams = new KafkaStreams(solution4App.createTopology(), config);
         kafkaStreams.start();
         Runtime.getRuntime().addShutdownHook(new Thread(kafkaStreams::close));
 
     }
 
-    private static Topology createTopology() {
+    @Override
+    public Topology createTopology() {
         StreamsBuilder streamsBuilder = new StreamsBuilder();
 
         KTable<Long, Doctor> doctors =

@@ -11,14 +11,16 @@ import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.kstream.Serialized;
+import org.szasiii.kstreams.TopologyProvider;
 
 import java.util.Arrays;
 import java.util.Properties;
 
 import static org.szasiii.kstreams.Utils.createTopics;
 
-public class Solution2App {
+public class Solution2App implements TopologyProvider {
     public static void main(String[] args) throws Exception {
+        Solution2App solution2App = new Solution2App();
         createTopics(Arrays.asList("ex2-input", "ex2-legacy-output", "ex2-new-input"));
 
         Properties config = new Properties();
@@ -28,16 +30,15 @@ public class Solution2App {
         config.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         config.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
-        final KafkaStreams kafkaStreams = new KafkaStreams(createTopology(), config);
+        final KafkaStreams kafkaStreams = new KafkaStreams(solution2App.createTopology(), config);
         kafkaStreams.start();
         Runtime.getRuntime().addShutdownHook(new Thread(kafkaStreams::close));
 
     }
 
-    private static Topology createTopology() {
+    @Override
+    public Topology createTopology() {
         StreamsBuilder streamsBuilder = new StreamsBuilder();
-        //TODO: Your solution
-        //k
         KStream<String, String> allOrders = streamsBuilder.stream("ex2-input", Consumed.with(Serdes.String(), Serdes.String()));
 
         KStream<String, KeyValue<String, String>> transformedStream = allOrders

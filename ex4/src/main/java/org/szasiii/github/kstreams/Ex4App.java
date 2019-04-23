@@ -6,13 +6,14 @@ import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
+import org.szasiii.kstreams.TopologyProvider;
 
 import java.util.Arrays;
 import java.util.Properties;
 
 import static org.szasiii.kstreams.Utils.createTopics;
 
-public class Ex4App {
+public class Ex4App implements TopologyProvider {
     public static void main(String[] args) throws Exception {
 
         /***
@@ -28,6 +29,7 @@ public class Ex4App {
          *
          */
 
+        Ex4App ex4App = new Ex4App();
         createTopics(Arrays.asList("ex4-doctors", "ex4-clinics", "ex4-output"));
 
         Properties config = new Properties();
@@ -37,13 +39,14 @@ public class Ex4App {
         config.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.Long().getClass());
         config.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
-        final KafkaStreams kafkaStreams = new KafkaStreams(createTopology(), config);
+        final KafkaStreams kafkaStreams = new KafkaStreams(ex4App.createTopology(), config);
         kafkaStreams.start();
         Runtime.getRuntime().addShutdownHook(new Thread(kafkaStreams::close));
 
     }
 
-    private static Topology createTopology() {
+    @Override
+    public Topology createTopology() {
         StreamsBuilder streamsBuilder = new StreamsBuilder();
         //TODO Your solution
         return streamsBuilder.build();

@@ -60,15 +60,15 @@ public class Utils {
     }
 
 
-    public static <T> Consumer<String, T> createConsumer(List<String> topicsToSubscribe, String valueSerializer) {
+    public static <K, V> Consumer<K, V> createConsumer(List<String> topicsToSubscribe,String keySerializer,  String valueSerializer) {
         final Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         props.put(ConsumerConfig.GROUP_ID_CONFIG, UUID.randomUUID().toString());
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, keySerializer);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, valueSerializer);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
-        final Consumer<String, T> consumer = new KafkaConsumer<>(props);
+        final Consumer<K, V> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(topicsToSubscribe);
         return consumer;
     }

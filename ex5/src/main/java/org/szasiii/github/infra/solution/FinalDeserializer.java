@@ -1,13 +1,14 @@
-package org.szasiii.github.infra.deserializers;
+package org.szasiii.github.infra.solution;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
-import org.szasiii.github.infra.model.Clinic;
+import org.apache.kafka.streams.KeyValue;
+import org.szasiii.github.infra.model.Disease;
 
 import java.util.Map;
 
-public class ClinicDeserializer implements Deserializer<Clinic> {
+public class FinalDeserializer implements Deserializer<FinalData> {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -17,13 +18,13 @@ public class ClinicDeserializer implements Deserializer<Clinic> {
     }
 
     @Override
-    public Clinic deserialize(String s, byte[] bytes) {
+    public FinalData deserialize(String s, byte[] bytes) {
         if (bytes == null)
             return null;
 
-        Clinic data;
+        FinalData data;
         try {
-            data = objectMapper.readValue(bytes, Clinic.class);
+            data = objectMapper.readValue(bytes, FinalData.class);
         } catch (Exception e) {
             throw new SerializationException(e);
         }

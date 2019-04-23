@@ -1,20 +1,21 @@
-package org.szasiii.github.infra.serializers;
+package org.szasiii.github.infra.solution;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Serializer;
-import org.szasiii.github.infra.model.Clinic;
+import org.szasiii.github.infra.model.Disease;
 
 import java.util.Map;
+import java.util.function.Function;
 
-public class ClinicSerializer implements Serializer<Clinic> {
+public class FullDataSerializer implements Serializer<FullData> {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     /**
      * Default constructor needed by Kafka
      */
-    public ClinicSerializer() {
+    public FullDataSerializer() {
     }
 
     @Override
@@ -22,7 +23,7 @@ public class ClinicSerializer implements Serializer<Clinic> {
     }
 
     @Override
-    public byte[] serialize(String topic, Clinic data) {
+    public byte[] serialize(String topic, FullData data) {
         if (data == null)
             return null;
 

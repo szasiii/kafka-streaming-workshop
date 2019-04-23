@@ -7,10 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Doctor {
-
+public class Id {
     private Long id;
-    private Long clinicid;
-    private String name;
-
 }

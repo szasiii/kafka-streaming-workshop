@@ -1,20 +1,21 @@
-package org.szasiii.github.infra.serializers;
+package org.szasiii.github.infra.solution;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Serializer;
-import org.szasiii.github.infra.model.Medicine;
+import org.apache.kafka.streams.KeyValue;
+import org.szasiii.github.infra.model.Disease;
 
 import java.util.Map;
 
-public class MedicineSerializer implements Serializer<Medicine> {
+public class FinalSerializer implements Serializer<FinalData> {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     /**
      * Default constructor needed by Kafka
      */
-    public MedicineSerializer() {
+    public FinalSerializer() {
     }
 
     @Override
@@ -22,7 +23,7 @@ public class MedicineSerializer implements Serializer<Medicine> {
     }
 
     @Override
-    public byte[] serialize(String topic, Medicine data) {
+    public byte[] serialize(String topic, FinalData data) {
         if (data == null)
             return null;
 

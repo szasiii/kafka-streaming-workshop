@@ -6,13 +6,14 @@ import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
+import org.szasiii.kstreams.TopologyProvider;
 
 import java.util.Arrays;
 import java.util.Properties;
 
 import static org.szasiii.kstreams.Utils.createTopics;
 
-public class Ex3App {
+public class Ex3App implements TopologyProvider {
     /***
      *
      * Create global table of user data and stream of orders then join orders data
@@ -24,6 +25,7 @@ public class Ex3App {
 
 
     public static void main(String[] args) throws Exception {
+        Ex3App ex3App = new Ex3App();
         createTopics(Arrays.asList("ex3-user-table", "ex3-user-orders", "ex3-inner-join-output", "ex3-left-join-output"));
 
         Properties config = new Properties();
@@ -33,13 +35,14 @@ public class Ex3App {
         config.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         config.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
-        final KafkaStreams kafkaStreams = new KafkaStreams(createTopology(), config);
+        final KafkaStreams kafkaStreams = new KafkaStreams(ex3App.createTopology(), config);
         kafkaStreams.start();
         Runtime.getRuntime().addShutdownHook(new Thread(kafkaStreams::close));
 
     }
 
-    private static Topology createTopology() {
+    @Override
+    public Topology createTopology() {
         StreamsBuilder streamsBuilder = new StreamsBuilder();
         //TODO Your solution
         return streamsBuilder.build();

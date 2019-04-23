@@ -1,13 +1,15 @@
 package org.szasiii.github.kstreams;
 
 import org.apache.kafka.streams.Topology;
+import org.szasiii.kstreams.TopologyProvider;
 
 import java.util.Arrays;
 
 import static org.szasiii.kstreams.Utils.createTopics;
 
-public class Ex1App {
+public class Ex1App implements TopologyProvider  {
     public static void main(String[] args) throws Exception {
+        Ex1App ex1App = new Ex1App();
 
         createTopics(Arrays.asList("ex1-stream-input", "ex1-table-input", "ex1-stream-output", "ex1-table-output"));
 
@@ -27,9 +29,8 @@ public class Ex1App {
 
     }
 
-    private static Topology createTopology() {
-        //TODO: Your solution
-
+    @Override
+    public Topology createTopology() {
         return null;
     }
 }

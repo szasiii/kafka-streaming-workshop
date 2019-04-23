@@ -8,15 +8,17 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.GlobalKTable;
 import org.apache.kafka.streams.kstream.KStream;
+import org.szasiii.kstreams.TopologyProvider;
 
 import java.util.Arrays;
 import java.util.Properties;
 
 import static org.szasiii.kstreams.Utils.createTopics;
 
-public class Solution4App {
+public class Solution3App implements TopologyProvider {
 
     public static void main(String[] args) throws Exception {
+        Solution3App solution3App = new Solution3App();
         createTopics(Arrays.asList("ex3-user-table", "ex3-user-orders", "ex3-inner-join-output", "ex3-left-join-output"));
 
         Properties config = new Properties();
@@ -26,13 +28,14 @@ public class Solution4App {
         config.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         config.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
-        final KafkaStreams kafkaStreams = new KafkaStreams(createTopology(), config);
+        final KafkaStreams kafkaStreams = new KafkaStreams(solution3App.createTopology(), config);
         kafkaStreams.start();
         Runtime.getRuntime().addShutdownHook(new Thread(kafkaStreams::close));
 
     }
 
-    private static Topology createTopology() {
+    @Override
+    public Topology createTopology() {
         StreamsBuilder streamsBuilder = new StreamsBuilder();
         GlobalKTable<String, String> usersGlobalTable = streamsBuilder.globalTable("ex3-user-table");
         KStream<String, String> userOrders = streamsBuilder.stream("ex3-user-orders");
