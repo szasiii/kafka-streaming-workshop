@@ -1,8 +1,5 @@
 FROM confluentinc/cp-kafka-connect:5.2.1
 
-ARG VERSION
-
-# Validate confluent version
 RUN ls /usr/share/java/confluent-common/common-utils-5.2.1.jar || false
 
 RUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*
@@ -15,17 +12,6 @@ ENV CONNECT_PLUGIN_PATH /usr/share/java/kafka-connect-plugins
 
 RUN mkdir -p ${CONNECT_PLUGIN_PATH}
 RUN mv /usr/share/java/kafka-connect-jdbc ${CONNECT_PLUGIN_PATH}/connectors-jdbc
-
-############################################################################################################
-# Debezium connectors
-############################################################################################################
-
-RUN curl -L https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/0.8.3.Final/debezium-connector-postgres-0.8.3.Final-plugin.tar.gz -o /tmp/debezium-0.8.3.Final-postgres.tar.gz
-RUN tar xzf /tmp/debezium-0.8.3.Final-postgres.tar.gz -C /tmp/
-RUN mkdir -p ${CONNECT_PLUGIN_PATH}/connectors-debezium
-RUN mv /tmp/debezium-connector-postgres/*.jar ${CONNECT_PLUGIN_PATH}/connectors-debezium/
-RUN rm -rf /tmp/*
-
 
 ############################################################################################################
 # Logback
@@ -49,7 +35,6 @@ ENV KAFKA_LOG4J_OPTS "-Dlogback.configurationFile=/etc/kafka/connect-logback.xml
 # Start
 ############################################################################################################
 
-# Disable the health checks because they do not work correctly with SASL
 RUN sed -i '/\/etc\/confluent\/docker\/ensure/d' /etc/confluent/docker/run
 
 CMD ["/etc/confluent/docker/run"]

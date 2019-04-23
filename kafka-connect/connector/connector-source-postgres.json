@@ -7,7 +7,7 @@
   "mode": "incrementing",
   "incrementing.column.name": "id",
   "topic.prefix": "ex5-",
-  "table.whitelist": "doctors",
+  "table.whitelist": "doctors, clinics, medicines, diseases, prescriptions",
   "transforms": "extract_key",
   "transforms.extract_key.type": "org.apache.kafka.connect.transforms.ValueToKey",
   "transforms.extract_key.fields": "id"
