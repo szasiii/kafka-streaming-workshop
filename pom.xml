@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -9,26 +9,25 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>ex0</module>
         <module>ex1</module>
         <module>ex2</module>
         <module>ex3</module>
         <module>ex4</module>
         <module>ex5</module>
-        <module>ex6</module>
-        <module>ex7</module>
-        <module>ex8</module>
-        <module>ex9</module>
-        <module>ex10</module>
-        <module>ex11</module>
-        <module>ex12</module>
-        <module>ex13</module>
-        <module>ex14</module>
-        <module>ex15</module>
+        <module>util</module>
     </modules>
 
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.4</version>
+                <scope>provided</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.apache.kafka</groupId>

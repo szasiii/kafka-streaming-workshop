@@ -10,9 +10,7 @@ services:
       ZOO_MY_ID: 1
       ZOO_PORT: 2181
       ZOO_SERVERS: server.1=zoo1:2888:3888
-    volumes:
-      - ./zk-single-kafka-single/zoo1/data:/data
-      - ./zk-single-kafka-single/zoo1/datalog:/datalog
+
 
   kafka1:
     image: confluentinc/cp-kafka:5.2.1
@@ -26,20 +24,8 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    volumes:
-      - ./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo1
-#        ^C^C^Croot@kafka1:/bin# history
-#        1  /bin/kafka-topics
-#        2  ./bin/kafka-topics
-#        3  cd bin
-#        4  kafka/bin/kafka-topics.sh --create   --zookeeper localhost:2181   --replication-factor 1 --partitions 13   --topic streams-plaintext-input
-#        5  kafka-topics --create   --zookeeper localhost:2181   --replication-factor 1 --partitions 1   --topic streams-plaintext-input
-#        6  kafka-topics --create   --zookeeper zoo1:2181   --replication-factor 1 --partitions 1   --topic streams-plaintext-input
-#        7  kafka-topics --create   --zookeeper zoo1:2181   --replication-factor 1 --partitions 1   --topic streams-wordcount-output
-#        8  kafka-console-producer --broker-list localhost:9092 --topic streams-plaintext-input
-#        9  kafka-console-consumer --bootstrap-server localhost:9092 --topic streams-plaintext-input --from-beginning
-#        10  kafka-console-consumer --bootstrap-server :9092 --topic streams-plaintext-input --from-beginning
-#        11  history
+
