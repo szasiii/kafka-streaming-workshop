@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import static org.szasiii.kstreams.Utils.createTopics;
 
-public class Ex1App implements TopologyProvider  {
+public class Ex1App implements TopologyProvider {
     public static void main(String[] args) throws Exception {
         Ex1App ex1App = new Ex1App();
 

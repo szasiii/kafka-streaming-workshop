@@ -1,14 +1,11 @@
 package org.szasiii.github.kstreams;
 
-import io.vavr.Tuple2;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.kafka.streams.KeyValue;
-import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.TopologyTestDriver;
 import org.apache.kafka.streams.test.ConsumerRecordFactory;
@@ -21,9 +18,6 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import static java.util.stream.IntStream.range;
-import static org.junit.Assert.*;
 
 public class Ex1AppTest {
 
@@ -53,13 +47,13 @@ public class Ex1AppTest {
         testDriver.pipeInput(factoryTable.create(2L, null));
 
         List<KeyValue<Long, String>> resultTable = IntStream.range(0, 1000)
-                .mapToObj(i ->  testDriver.readOutput("ex1-table-input", new LongDeserializer(), new StringDeserializer()))
+                .mapToObj(i -> testDriver.readOutput("ex1-table-input", new LongDeserializer(), new StringDeserializer()))
                 .filter(Objects::nonNull)
                 .map(v -> KeyValue.pair(v.key(), v.value()))
                 .collect(Collectors.toList());
 
         List<KeyValue<Long, String>> resultStream = IntStream.range(0, 1000)
-                .mapToObj(i ->  testDriver.readOutput("ex1-stream-output", new LongDeserializer(), new StringDeserializer()))
+                .mapToObj(i -> testDriver.readOutput("ex1-stream-output", new LongDeserializer(), new StringDeserializer()))
                 .filter(Objects::nonNull)
                 .map(v -> KeyValue.pair(v.key(), v.value()))
                 .collect(Collectors.toList());

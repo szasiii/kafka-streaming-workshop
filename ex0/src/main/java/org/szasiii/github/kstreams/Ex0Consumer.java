@@ -11,7 +11,7 @@ import static org.szasiii.kstreams.Utils.createConsumer;
 
 public class Ex0Consumer {
     public static void main(String[] args) throws Exception {
-        Consumer<String, String> consumer = createConsumer(Collections.singletonList("ex0-output"), StringSerializer.class.getName(),  StringSerializer.class.getName());
+        Consumer<String, String> consumer = createConsumer(Collections.singletonList("ex0-output"), StringSerializer.class.getName(), StringSerializer.class.getName());
 
         while (true) {
             ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(2L));

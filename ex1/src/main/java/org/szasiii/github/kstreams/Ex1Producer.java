@@ -6,8 +6,6 @@ import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import static org.szasiii.kstreams.Utils.createCustomProducer;
-import static org.szasiii.kstreams.Utils.createProducer;
-import static org.szasiii.kstreams.Utils.exRecord;
 
 public class Ex1Producer {
     public static void main(String[] args) throws Exception {

@@ -3,7 +3,6 @@ package org.szasiii.github.infra.deserializers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
-import org.szasiii.github.infra.model.Disease;
 import org.szasiii.github.infra.model.Id;
 
 import java.util.Map;

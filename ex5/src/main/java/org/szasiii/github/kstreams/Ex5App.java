@@ -1,7 +1,6 @@
 package org.szasiii.github.kstreams;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
@@ -20,11 +19,11 @@ import org.szasiii.github.infra.model.Prescription;
 import org.szasiii.github.infra.serdes.ArrayListSerde;
 import org.szasiii.github.infra.serdes.CustomSerdes;
 import org.szasiii.github.infra.solution.FinalData;
+import org.szasiii.github.infra.solution.FinalDeserializer;
+import org.szasiii.github.infra.solution.FinalSerializer;
 import org.szasiii.github.infra.solution.FullData;
 import org.szasiii.github.infra.solution.FullDataDeserializer;
 import org.szasiii.github.infra.solution.FullDataSerializer;
-import org.szasiii.github.infra.solution.FinalDeserializer;
-import org.szasiii.github.infra.solution.FinalSerializer;
 import org.szasiii.github.infra.solution.PDDeserializer;
 import org.szasiii.github.infra.solution.PDSerializer;
 import org.szasiii.github.infra.solution.PrescriptionDisease;

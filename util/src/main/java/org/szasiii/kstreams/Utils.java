@@ -10,7 +10,6 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Collections;
@@ -60,7 +59,7 @@ public class Utils {
     }
 
 
-    public static <K, V> Consumer<K, V> createConsumer(List<String> topicsToSubscribe,String keySerializer,  String valueSerializer) {
+    public static <K, V> Consumer<K, V> createConsumer(List<String> topicsToSubscribe, String keySerializer, String valueSerializer) {
         final Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
         props.put(ConsumerConfig.GROUP_ID_CONFIG, UUID.randomUUID().toString());

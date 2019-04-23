@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.szasiii.github.kstreams.solution.Solution1App;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
