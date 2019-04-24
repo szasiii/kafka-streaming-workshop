@@ -75,15 +75,3 @@ public class Solution4App implements TopologyProvider {
         return streamsBuilder.build();
     }
 }
-
-
-//    one-many out key: 1000 value: 1000-CRD-1000
-//    one-many out key: 1001 value: 1001-CRD1-1000
-//    one-many out key: 1002 value: 1002-CRD2-1000
-//    one-many out key: 1003 value: 1003-CRD3-1001
-//    one-many out key: 1004 value: 1004-CRD4-1001
-//    one-many out key: 1005 value: 1005-CRD5-1001
-//    one-many out key: 1006 value: 1006-CRD6-1001
-//    one-many out key: 1007 value: 1007-CRD7-1002
-//    one-many out key: 1008 value: 1008-CRD8-1002
-//    one-many out key: 1009 value: 1009-CRD9-1002
