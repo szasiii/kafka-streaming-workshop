@@ -14,6 +14,7 @@ import org.apache.kafka.streams.kstream.Serialized;
 import org.szasiii.kstreams.TopologyProvider;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import static org.szasiii.kstreams.Utils.createTopics;
@@ -30,7 +31,6 @@ public class Solution2App implements TopologyProvider {
         config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         config.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         config.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-
         final KafkaStreams kafkaStreams = new KafkaStreams(solution2App.createTopology(), config);
         kafkaStreams.start();
         Runtime.getRuntime().addShutdownHook(new Thread(kafkaStreams::close));
@@ -39,12 +39,16 @@ public class Solution2App implements TopologyProvider {
 
     @Override
     public Topology createTopology() {
+
+        List<String> filterValues = Arrays.asList("bambi", "optimus", "godzilla");
+
         StreamsBuilder streamsBuilder = new StreamsBuilder();
         KStream<String, String> allOrders = streamsBuilder.stream("ex2-input", Consumed.with(Serdes.String(), Serdes.String()));
 
         KStream<String, KeyValue<String, String>> transformedStream = allOrders
                 .mapValues(value -> Arrays.asList(value.split(":")))
-                .mapValues(value -> KeyValue.pair(value.get(0), value.get(1)));
+                .mapValues(value -> KeyValue.pair(value.get(0), value.get(1)))
+                .filter((key, value) -> filterValues.contains(value.key));
 
         transformedStream
                 .filter((key, value) -> key.equals("legacy"))

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -26,7 +27,7 @@ public class Solution1AppTest {
     public void test() {
         Solution1App solution1App = new Solution1App();
         Properties config = new Properties();
-        config.put(StreamsConfig.APPLICATION_ID_CONFIG, "test");
+        config.put(StreamsConfig.APPLICATION_ID_CONFIG, UUID.randomUUID().toString());
         config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummy:1234");
         config.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.Long().getClass());
         config.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
@@ -40,20 +41,20 @@ public class Solution1AppTest {
             testDriver.pipeInput(factoryTable.create(longStringKeyValue.key, longStringKeyValue.value));
         });
 
-        List<KeyValue<Long, String>> resultTable = IntStream.range(0, 1000)
+        List<KeyValue<Long, String>> resultTable = IntStream.range(0, 10)
                 .mapToObj(i -> testDriver.readOutput("ex1-table-output", new LongDeserializer(), new StringDeserializer()))
                 .filter(Objects::nonNull)
                 .map(v -> KeyValue.pair(v.key(), v.value()))
                 .collect(Collectors.toList());
 
-        List<KeyValue<Long, String>> resultStream = IntStream.range(0, 1000)
+        List<KeyValue<Long, String>> resultStream = IntStream.range(0, 10)
                 .mapToObj(i -> testDriver.readOutput("ex1-stream-output", new LongDeserializer(), new StringDeserializer()))
                 .filter(Objects::nonNull)
                 .map(v -> KeyValue.pair(v.key(), v.value()))
                 .collect(Collectors.toList());
 
-        Assert.assertEquals(provideTestData(), resultStream);
-        Assert.assertEquals(provideTestData(), resultTable);
+        Assert.assertEquals(resultsStream(), resultStream);
+        Assert.assertEquals(resultsStream(), resultTable);
 
     }
 
@@ -66,4 +67,15 @@ public class Solution1AppTest {
         result.add(KeyValue.pair(2L, null));
         return result;
     }
+
+    private List<KeyValue<Long, String>> resultsStream() {
+        List<KeyValue<Long, String>> result = new ArrayList<>();
+        result.add(KeyValue.pair(1L, "test"));
+        result.add(KeyValue.pair(2L, "test"));
+        result.add(KeyValue.pair(3L, "test"));
+        result.add(KeyValue.pair(1L, "test-update"));
+        result.add(KeyValue.pair(2L, null));
+        return result;
+    }
+
 }

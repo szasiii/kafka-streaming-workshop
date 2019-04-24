@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import static org.szasiii.kstreams.Utils.createTopics;
 
+@SuppressWarnings("all")
 public class Ex4App implements TopologyProvider {
     public static void main(String[] args) throws Exception {
 

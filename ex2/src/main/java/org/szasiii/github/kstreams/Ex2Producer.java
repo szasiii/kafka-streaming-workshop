@@ -25,14 +25,3 @@ public class Ex2Producer {
         Thread.sleep(5000L);
     }
 }
-
-//    legacy out key: bambi value: 35
-//        legacy out key: batman value: 5
-//        legacy out key: optimus value: 100
-//        legacy out key: godzilla value: 401
-//        legacy out key: fake value: 0
-//        new out key: bambi value: 35
-//        new out key: batman value: 5
-//        new out key: optimus value: 1
-//        new out key: godzilla value: 1400
-//        new out key: fake value: 0
