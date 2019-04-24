@@ -2,6 +2,7 @@
 
 ### Practical Exercises of Kafka Streams API
 
+
 #### Exercise 1
     /** *
      * 1. Define properties for application
@@ -51,5 +52,23 @@
      *
      */
 #### Exercise 5
+    /***
+     * This time run docker-compose down to shut down previous run
+     * and start docker-compose --file docker-compose-ex5.yaml up -d
+     *
+     * There are 3 topics streamed via kafka connect
+     * ex5-doctors, ex5-diseases, ex5-prescriptions
+     * Each of them has key in json format {"id": 1} and json value
+     * For both ID (ID is name of model for key) and each value format
+     * models/serializers/deserializers/serdes have already been prepared for you
+     * you will have take a look on data and join/map/aggregate however you want
+     * to obtain at the end ex5-output topic where key will be long value diseaseId from Disease pojo
+     * and value will be json containing doctorId and prescripted medicineName for that disease
+     *
+     * Take a note that you will have to introduce new data types, serializers, deserializers and serdes
+     * that is easy you can base on implementation done in infra
+     *
+     * Intentionally there is no test for that exercise
+     *
+     */
 
-### Real time streaming problem

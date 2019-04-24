@@ -74,7 +74,7 @@ public class Solution5App implements TopologyProvider {
                         .reduce((value1, value2) -> value2, Materialized.with(Serdes.Long(), CustomSerdes.DISASE));
 
         KTable<Id, Prescription> presciptions =
-                streamsBuilder.table("ex5-prescriptions", Consumed.with(CustomSerdes.ID, CustomSerdes.PRESCRIPTION)); //filter where no disease or medicine code
+                streamsBuilder.table("ex5-prescriptions", Consumed.with(CustomSerdes.ID, CustomSerdes.PRESCRIPTION));
 
 
         KTable<Long, PrescriptionDisease> kTable2 = presciptions
