@@ -13,7 +13,7 @@ public class Ex1App implements TopologyProvider {
 
         createTopics(Arrays.asList("ex1-stream-input", "ex1-table-input", "ex1-stream-output", "ex1-table-output"));
 
-        /*
+        /**
          * 1. Define properties for application
          * In createTopology method:
          *  a. Create StreamsBuilder instance

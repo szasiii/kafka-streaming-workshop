@@ -17,10 +17,10 @@ import static org.szasiii.kstreams.Utils.createTopics;
 public class Ex2App implements TopologyProvider {
 
     /***
-     * Unified orders produce data 1 input topic for legacy and new systems
-     * Message's key as indicator of legacy or new system [legacy|new]
+     * Unified orders system produce data to 1 input topic for legacy and new systems
+     * Message's key is an indicator of legacy or new system [legacy|new]
      * Messages start with product name (bambi, godzilla, optimus) then is separator':' batch of quantity
-     * numbers separated with commas (number can be negative for number of returned pieces) {productName}:1,1,2,-3
+     * numbers separated with commas (number can be negative for number of returned pieces) e.q {productName}:1,1,2,-3
      * Filter invalid products as our analysis needs only bambi, godzilla and optimus to be investigated
      * as a result we need create 2 output topics ex2-legacy-out and ex2-new-output each of them
      * should have sum for each of desired products

@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 import static org.szasiii.kstreams.Utils.createConsumer;
 
-public class Ex5Output {
+public class Ex5Consumer {
     public static void main(String[] args) throws Exception {
         Consumer<Long, ArrayList<FinalData>> consumer = createConsumer(Arrays.asList("ex5-output"), LongDeserializer.class.getName(), ArrayListDeserializer.class.getName());
 
