@@ -1,4 +1,4 @@
-package org.szasiii.github.kstreams;
+package org.szasiii.github.kstreams.solution;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

@@ -26,7 +26,7 @@ public class Ex5App implements TopologyProvider {
      * Each of them has key in json format {"id": 1} and json value
      * For both ID (ID is name of model for key) and each value format
      * models/serializers/deserializers/serdes have already been prepared for you
-     * you will have take a look on data and join/map/aggregate however you want
+     * you will have to take a look on data and join/map/aggregate however you want
      * to obtain at the end ex5-output topic where key will be long value diseaseId from Disease pojo
      * and value will be json containing doctorId and prescripted medicineName for that disease
      *

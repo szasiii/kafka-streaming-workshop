@@ -23,6 +23,7 @@ public class Ex1App implements TopologyProvider {
          *  e. Sink ktable to output topic 'ex1-table-output'
          * 2. Create KafkaStreams instance
          * 3. Start kafka streams
+         * 4. Create instances of producer and consumer to observe result
          */
 
 //        Runtime.getRuntime().addShutdownHook(new Thread(kafkaStreams::close));
